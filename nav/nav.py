@@ -9,8 +9,9 @@ class Nav:
     def __init__(self):
 
         self.compass = 0
-        self.position = {"lat":59.51334996607165,"lng":10.145188809999071}
+        self.position = {"lat":59.514596190314414,"lng":10.15316963195801}
         self.waypoints = []
+        self.running = False
 
 
     def report(self, message : str) -> None:
@@ -23,6 +24,12 @@ class Nav:
         with open(filename, "r") as f:
             self.waypoints = json.load(f)
         self.report(f"{len(nav.waypoints)} waypoints loaded!")
+
+
+    def update_position(self) -> None:
+
+        self.position = {"lat":59.514596190314414,"lng":10.15316963195801}
+        # Ikke laget funksjon for dette enda...
 
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
@@ -52,6 +59,7 @@ class Nav:
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
+
         r = 6371
         phi1 = np.radians(pos1["lat"])
         phi2 = np.radians(pos2["lat"])
@@ -63,19 +71,44 @@ class Nav:
         return res*1000
 
 
+    def check_if_close(self, pos : dict) -> bool:
+
+        distance = self.get_distance(self.position, pos)
+        if distance <= 1:
+            return True
+        return False
+
+    
+    def show_route(self) -> None:
+
+        for pos, waypoint in enumerate(nav.waypoints):
+            heading = self.get_heading(self.position, waypoint)
+            distance = self.get_distance(self.position, waypoint)
+            print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m")
+
+
     def start_autopilot(self) -> None:
 
+        self.running = True
         nav.report("Starting autopilot ..."); time.sleep(2)
-        for pos, waypoint in enumerate(nav.waypoints):
-            if pos == len(nav.waypoints)-1:
-                nav.report("Ruten er ferdig!"); break
 
-            heading = self.get_heading(waypoint, self.waypoints[pos+1])
-            distance = self.get_distance(waypoint, self.waypoints[pos+1])
-            print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m")
+        for pos, waypoint in enumerate(nav.waypoints):
+            if not self.running: break
+            while not self.check_if_close(waypoint):
+                if not self.running: break
+                self.update_position()
+
+                heading = self.get_heading(self.position, waypoint)
+                distance = self.get_distance(self.position, waypoint)
+                print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m")
+
+        nav.report("Route has completed!"); time.sleep(2)
+        running = False
 
 
 nav = Nav()
 nav.load_waypoints("waypoints.json")
 nav.get_heading(nav.waypoints[0], nav.waypoints[1])
-nav.start_autopilot()
+
+nav.show_route()
+#nav.start_autopilot()
