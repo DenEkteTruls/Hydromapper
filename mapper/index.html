@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+   <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.71.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div id="nav">
+            <button onclick="save()" style="border: 1px solid; color: green; font-size: 16px; margin-top: 5px; margin-bottom: 10px; margin-right: 10px;">SAVE</button>
+            <button onclick="reset()" style="border: 1px solid; color: RED; font-size: 16px; margin-top: 5px; margin-bottom: 10px; margin-right: 10px;">RESET</button>
+            <button onclick="open_()" style="border: 1px solid; color: lightsalmon; font-size: 16px; margin-top: 5px; margin-bottom: 10px; margin-right: 10px;">OPEN</button>
+        </div>
+        <div id="map" style="height: 92vh;"></div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
