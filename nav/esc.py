@@ -40,5 +40,5 @@ class ESC:
     def stop(self):
 
         self.report("DISARMING ...")
-        self.set_speed__(0)
+        os.system(f"pigs s {self.esc_pin} 0")
         self.report("DISARMED")
