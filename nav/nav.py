@@ -9,6 +9,7 @@ class Nav:
 
     def __init__(self):
 
+        self.escs = []
         self.compass = 0
         self.position = {}
         self.waypoints = []
@@ -17,8 +18,20 @@ class Nav:
 
     def report(self, message : str) -> None:
 
-        print(f"[REPORT] {message}")
+        print(f"[NAV] {message}")
 
+    
+    def add_esc(self, esc : object | list) -> None:
+
+        if isinstance(esc, object):
+            self.escs.append(esc)
+            self.report("Added ESC")
+
+        elif isinstance(esc, list):
+            for esc_ in esc:
+                self.escs.append(esc_)
+            self.report(f"Added {len(esc)} ESCs")
+            
 
     def load_waypoints(self, filename : str) -> None:
 
@@ -28,7 +41,7 @@ class Nav:
                 x, y = utm.from_latlon(wp["lat"], wp["lng"])[0:2]
                 self.waypoints.append({'x': x, 'y': y})
 
-        self.report(f"{len(nav.waypoints)} waypoints loaded!")
+        self.report(f"{len(self.waypoints)} waypoints loaded!")
 
 
     def update_position(self) -> None:
@@ -43,7 +56,7 @@ class Nav:
         dN = abs(pos1['y']-pos2['y'])
         dE = abs(pos1['x']-pos2['x'])
 
-        return np.rad2deg(np.arctan(dN/dE))-1
+        return np.rad2deg(np.arctan(dN/dE)) - 1
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
@@ -65,18 +78,18 @@ class Nav:
 
     def show_simulated_route(self) -> None:
 
-        for pos, wp in enumerate(nav.waypoints[:-1]):
-            heading = self.get_heading(wp, nav.waypoints[pos+1])
-            distance = self.get_distance(wp, nav.waypoints[pos+1])
+        for pos, wp in enumerate(self.waypoints[:-1]):
+            heading = self.get_heading(wp, self.waypoints[pos+1])
+            distance = self.get_distance(wp, self.waypoints[pos+1])
             print(f"[AUTOPILOT SIMULATION] {pos}. Heading: {heading}, Distance: {distance}m")
 
 
     def start_autopilot(self) -> None:
 
         self.running = True
-        nav.report("Starting autopilot ..."); time.sleep(2)
+        self.report("Starting autopilot ..."); time.sleep(2)
 
-        for pos, waypoint in enumerate(nav.waypoints):
+        for pos, waypoint in enumerate(self.waypoints):
             if not self.running: break
             while not self.check_if_close(waypoint):
                 if not self.running: break
@@ -86,13 +99,13 @@ class Nav:
                 distance = self.get_distance(self.position, waypoint)
                 print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m")
 
-        nav.report("Route has completed!"); time.sleep(2)
+        self.report("Route has completed!"); time.sleep(2)
         self.running = False
 
 
-nav = Nav()
-nav.load_waypoints("waypoints.json")
-nav.get_heading(nav.waypoints[0], nav.waypoints[1])
+#nav = Nav()
+#nav.load_waypoints("waypoints.json")
+#nav.get_heading(nav.waypoints[0], nav.waypoints[1])
 
-nav.show_simulated_route()
-nav.start_autopilot()
+#nav.show_simulated_route()
+#nav.start_autopilot()
