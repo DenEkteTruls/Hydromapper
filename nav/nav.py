@@ -23,7 +23,7 @@ class Nav:
         self.compass = 0
         self.position = {}
         self.waypoints = []
-        self.return_home = False
+        self.retHome = False
         self.running = True
 
 
@@ -64,7 +64,7 @@ class Nav:
                         esc.disarm()
 
                 case "1x0000":
-                    self.return_home = True
+                    self.return_home()
 
                 case "1x0001":
                     self.start_autopilot()
@@ -129,38 +129,53 @@ class Nav:
             print(f"[AUTOPILOT SIMULATION] {pos}. Heading: {heading}, Distance: {distance}m")
 
 
+    def return_home_(self) -> None:
+
+        self.retHome = True
+        last_time = time.time()
+        print_ = False
+
+        while not self.check_if_close(self.waypoints[0]):
+            if not self.running: break
+
+            if time.time() - last_time > 1:
+                print_ = True; last_time = time.time()
+
+            self.update_position()
+            heading = self.get_heading(self.position, self.waypoints[0])
+            distance = self.get_distance(self.position, self.waypoints[0])
+            if print_: print(f"[AUTOPILOT] ** RETURNING HOME **  Distance: {distance}"); print_ = False
+
+    
+    def return_home(self) -> None:
+
+        threading._start_new_thread(self.return_home_, ())
+
+
     def start_autopilot_(self) -> None:
 
-        self.running = True
         self.report("Starting autopilot ..."); time.sleep(1.5)
         
         last_time = time.time()
         print_ = False
 
         for pos, waypoint in enumerate(self.waypoints):
-            if not self.running: break
             while not self.check_if_close(waypoint):
 
-                if not self.running: break
+                if not self.running or self.retHome: break
 
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
                 
-                if self.return_home:
-                    self.update_position()
-                    heading = self.get_heading(self.position, self.waypoints[0])
-                    distance = self.get_distance(self.position, self.waypoints[0])
-                    if print_: print(f"[AUTOPILOT] ** RETURNING HOME **  Distance: {distance}"); print_ = False
-
-                else:
-                    self.update_position()
-                    heading = self.get_heading(self.position, waypoint)
-                    distance = self.get_distance(self.position, waypoint)
-                    if print_: print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m"); print_ = False
+                self.update_position()
+                heading = self.get_heading(self.position, waypoint)
+                distance = self.get_distance(self.position, waypoint)
+                if print_: print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m"); print_ = False
 
 
         self.report("Route has completed!"); time.sleep(1.5)
         self.running = False
+
 
     def start_autopilot(self) -> None:
 
