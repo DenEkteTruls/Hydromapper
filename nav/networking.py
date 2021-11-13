@@ -30,14 +30,3 @@ class Networking:
     def listener(self):
 
         threading._start_new_thread(self.listener__, ())
-
-
-net = Networking("localhost", 8081, 1024)
-net.listener()
-
-for a in range(10):
-    sleep(5)
-    print(net.recieved)
-
-net.running = False
-exit()
