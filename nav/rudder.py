@@ -15,5 +15,5 @@ class Rudder:
 
     def set_heading(self, heading : int) -> None:
 
-        hz = self.degrees[heading+59]
+        hz = self.degrees[heading+60]
         os.system(f"pigs s {self.pin} {hz}")
