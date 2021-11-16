@@ -66,8 +66,8 @@ class Nav:
 
             if msg[0:2] == "0x1":
                 for esc in self.escs:
-                    print(msg[3:])
-                    esc.set(msg[3:])
+                    print(msg[2:])
+                    esc.set(msg[2:])
 
             elif msg[0:2] == "2x":
                 try:
