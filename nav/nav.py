@@ -1,3 +1,4 @@
+import os
 import utm
 import json
 import time
@@ -11,8 +12,7 @@ import threading
 #   0x0010              : Disarm
 #   1x0000              : Return to Home (first waypoint)
 #   1x0001              : Start Autopilot
-#
-#
+#   2x-60 > 2x+60       : Rudder heading (direct)
 #
 
 class Nav:
@@ -20,11 +20,14 @@ class Nav:
     def __init__(self):
 
         self.escs = []
+        self.rudders = []
         self.compass = 0
         self.position = {}
         self.waypoints = []
         self.retHome = False
         self.running = True
+
+        os.system("sudo pigpiod")
 
 
     def report(self, message : str) -> None:
@@ -43,6 +46,17 @@ class Nav:
                 self.escs.append(esc_)
             self.report(f"Added {len(esc)} ESCs")
 
+    def add_rudder(self, rudder : object | list) -> None:
+
+        if isinstance(rudder, object):
+            self.rudders.append(rudder)
+            self.report("Added rudder")
+
+        elif isinstance(rudder, list):
+            for rudder_ in rudder:
+                self.rudders.append(rudder_)
+            self.report(f"Added {len(rudder)} rudders")
+
 
     def handle_networking(self, recieved : list) -> bool:
 
@@ -52,6 +66,11 @@ class Nav:
                 for esc in self.escs:
                     esc.set(msg[3:])
 
+            elif msg[0:2] == "2x":
+                self.heading = int(msg[3:])
+                print(f"New heading : {self.heading}")
+                for rudder in self.rudders:
+                    rudder.set_heading(self.heading)
 
             match msg:
 
@@ -70,6 +89,9 @@ class Nav:
                     self.start_autopilot()
 
                 case "stop" | "quit":
+                    self.retHome = False
+                    for esc in self.escs:
+                        esc.disarm()
                     return False
             
             recieved.remove(msg)
@@ -136,8 +158,7 @@ class Nav:
         print_ = False
 
         while not self.check_if_close(self.waypoints[0]):
-            if not self.running: break
-
+            if not self.retHome: break
             if time.time() - last_time > 1:
                 print_ = True; last_time = time.time()
 

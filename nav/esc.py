@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 
 class ESC:
@@ -35,7 +36,7 @@ class ESC:
     def set(self, speed):
 
         self.set_speed__(speed)
-
+        
 
     def disarm(self):
 
