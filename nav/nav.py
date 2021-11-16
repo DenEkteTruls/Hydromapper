@@ -71,10 +71,10 @@ class Nav:
             elif msg[0:2] == "2x":
                 try:
                     self.heading = int(msg[3:5])
+                    print(self.heading)
                 except:
                     break
 
-                print(f"New heading : {self.heading}")
                 for rudder in self.rudders:
                     rudder.set_heading(int(self.heading))
 
