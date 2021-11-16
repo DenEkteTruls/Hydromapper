@@ -88,7 +88,7 @@ class Nav:
             elif msg == "1x0001":
                 self.start_autopilot()
 
-            elif msg == "stop" | "quit":
+            elif msg == "stop" or msg == "quit":
                 self.retHome = False
                 for esc in self.escs:
                     esc.disarm()
