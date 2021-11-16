@@ -64,10 +64,10 @@ class Nav:
 
         for msg in recieved:
 
-            if msg[0:2] == "0x1":
+            if msg[0:3] == "0x1":
                 for esc in self.escs:
-                    print(msg[2:])
-                    esc.set(msg[2:])
+                    print(msg[3:])
+                    esc.set_(msg[3:])
 
             elif msg[0:2] == "2x":
                 try:
