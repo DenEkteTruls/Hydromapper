@@ -70,7 +70,7 @@ class Nav:
 
             elif msg[0:2] == "2x":
                 try:
-                    self.heading = int(msg[3:5])
+                    self.heading = int(msg[2:5])
                     print(self.heading)
                 except:
                     break
