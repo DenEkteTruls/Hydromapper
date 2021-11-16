@@ -9,7 +9,8 @@ esc = ESC(esc_pin = 4)
 rudder = Rudder(pin = 17)
 net = Networking("localhost", 8081, 1024)
 
-nav.add_esc([esc, rudder])
+nav.add_esc(esc)
+nav.add_rudder(rudder)
 nav.load_waypoints("waypoints.json")
 net.listener()
 

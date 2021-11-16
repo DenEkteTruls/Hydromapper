@@ -35,7 +35,8 @@ class Nav:
         print(f"[NAV] {message}")
 
     
-    def add_esc(self, esc : object | list) -> None:
+    # def add_esc(self, esc : object | list) -> None: (python3.10)
+    def add_esc(self, esc : object) -> None:
 
         if isinstance(esc, object):
             self.escs.append(esc)
@@ -46,7 +47,8 @@ class Nav:
                 self.escs.append(esc_)
             self.report(f"Added {len(esc)} ESCs")
 
-    def add_rudder(self, rudder : object | list) -> None:
+    #def add_rudder(self, rudder : object | list) -> None: (python3.10)
+    def add_rudder(self, rudder : object) -> None:
 
         if isinstance(rudder, object):
             self.rudders.append(rudder)
@@ -72,6 +74,28 @@ class Nav:
                 for rudder in self.rudders:
                     rudder.set_heading(self.heading)
 
+            elif msg == "0x0001":
+                for esc in self.escs:
+                    esc.arm()
+
+            elif msg == "0x0010":
+                for esc in self.escs:
+                    esc.disarm()
+
+            elif msg == "1x0000":
+                self.return_home()
+
+            elif msg == "1x0001":
+                self.start_autopilot()
+
+            elif msg == "stop" | "quit":
+                self.retHome = False
+                for esc in self.escs:
+                    esc.disarm()
+                return False
+
+            # (python3.10)
+            """
             match msg:
 
                 case "0x0001":
@@ -93,6 +117,7 @@ class Nav:
                     for esc in self.escs:
                         esc.disarm()
                     return False
+            """
             
             recieved.remove(msg)
 
