@@ -18,7 +18,7 @@ class ESC:
         print(f"[ESC] {message}")
 
     
-    def set_speed__(self, speed):
+    def set_speed__(self, speed : int):
 
         speed_ = (speed * 10) + 1000
 
