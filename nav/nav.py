@@ -69,10 +69,14 @@ class Nav:
                     esc.set(msg[3:])
 
             elif msg[0:2] == "2x":
-                self.heading = int(msg[3:])
+                try:
+                    self.heading = int(msg[3:5])
+                except:
+                    break
+
                 print(f"New heading : {self.heading}")
                 for rudder in self.rudders:
-                    rudder.set_heading(self.heading)
+                    rudder.set_heading(int(self.heading))
 
             elif msg == "0x0001":
                 for esc in self.escs:
@@ -93,6 +97,7 @@ class Nav:
                 for esc in self.escs:
                     esc.disarm()
                 return False
+
 
             # (python3.10)
             """
