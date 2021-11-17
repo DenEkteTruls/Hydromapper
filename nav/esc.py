@@ -6,8 +6,9 @@ class ESC:
 
     idx = -1
 
-    def __init__(self, esc_pin):
+    def __init__(self, esc_pin, pi):
 
+        self.pi = pi
         self.id = ESC.idx + 1; ESC.ids = self.id
         self.esc_pin = esc_pin
         self.speed = 0
@@ -22,7 +23,7 @@ class ESC:
 
         speed_ = (speed * 10) + 1000
 
-        os.system(f"pigs s {self.esc_pin} {int(speed_)}")
+        self.pi.set_servo_pulsewidth(self, self.esc_pin, speed_)
         self.report(f"Speed change -> {speed}")
 
 

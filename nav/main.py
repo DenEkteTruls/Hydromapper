@@ -2,8 +2,10 @@ from nav import Nav
 from esc import ESC
 from rudder import Rudder
 from networking import Networking
+import pigpio
 import time
 
+pi = pigpio.pi()
 nav = Nav()
 esc = ESC(esc_pin = 4)
 rudder = Rudder(pin = 17)
