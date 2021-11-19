@@ -17,4 +17,4 @@ class Rudder:
     def set_heading(self, heading : int) -> None:
 
         hz = self.degrees[heading+60]
-        self.pi.set_servo_pulsewidth(self, self.esc_pin, hz)
+        self.pi.set_servo_pulsewidth(self.esc_pin, hz)

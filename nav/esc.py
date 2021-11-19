@@ -23,7 +23,7 @@ class ESC:
 
         speed_ = (speed * 10) + 1000
 
-        self.pi.set_servo_pulsewidth(self, self.esc_pin, speed_)
+        self.pi.set_servo_pulsewidth(self.esc_pin, speed_)
         self.report(f"Speed change -> {speed}")
 
 
