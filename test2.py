@@ -22,7 +22,7 @@ screen = pygame.display.set_mode((500, 500))
 speed = 0
 heading = 0
 
-net = Networking("169.254.42.45", 8081)
+net = Networking("169.254.35.120", 8081)
 
 def renderText(text, pos, renderer):
     myfont = pygame.font.SysFont('Comic Sans MS', 50)
@@ -44,21 +44,26 @@ while running:
                 speed -= 1
                 net.send("0x1"+str(speed))
             elif event.key == pygame.K_a:
-                if heading < 60 and heading > -60: heading -= 1
-                if heading > 0:
-                    net.send("2x+"+str(heading))
-                else:
-                    net.send("2x"+str(heading))
+                heading += 3
+                if heading < 60 and heading > -60:
+                    if heading > 0:
+                        net.send("2x+"+str(heading))
+                    else:
+                        net.send("2x"+str(heading))
             elif event.key == pygame.K_d:
-                if heading < 60 and heading > -60: heading += 1
-                if heading > 0:
-                    net.send("2x+"+str(heading))
-                else:
-                    net.send("2x"+str(heading))
+                heading -= 3
+                if heading < 60 and heading > -60:
+                    if heading > 0:
+                        net.send("2x+"+str(heading))
+                    else:
+                        net.send("2x"+str(heading))
             elif event.key == pygame.K_o:
                 net.send("0x0001")
             elif event.key == pygame.K_l:
                 net.send("0x0010")
+            elif event.key == pygame.K_SPACE:
+                heading = 0
+                net.send("2x+"+str(heading))
 
     screen.fill((0, 0, 0))
     
