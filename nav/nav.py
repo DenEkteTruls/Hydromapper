@@ -26,6 +26,7 @@ class Nav:
         self.waypoints = []
         self.retHome = False
         self.running = True
+        self.depth = None
 
         os.system("sudo pigpiod")
 
