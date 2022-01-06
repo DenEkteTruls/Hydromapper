@@ -16,7 +16,8 @@ class Sonar:
 
         while self.running:
 
-            gray = cv2.resize(cv2.cvtColor(self.cap.read()[1], cv2.COLOR_BGR2GRAY), (480, 360))
+            frame = self.cap.read()[1]
+            gray = cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), (480, 360))
             d = pt.image_to_data(gray, config = "--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789.", output_type = pt.Output.DICT)
 
             try     : self.depth = float(d['text'][4])
@@ -24,12 +25,14 @@ class Sonar:
 
             self.nav.depth = self.depth
             
-            if cv2.waitKey(10) & 0xFF == 27: break
+#            cv2.imshow("frame", gray)
+#            if cv2.waitKey(10) & 0xFF == 27: break
 
         self.cap.release()
-        cv2.destroyAllWindows()
+ #       cv2.destroyAllWindows()
+        self.running = False
 
 
-    def run(self):
+    def run_in_background(self):
 
         threading._start_new_thread(self.run_, ())

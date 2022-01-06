@@ -3,7 +3,7 @@ import numpy as np
 
 class Rudder:
 
-    def __init__(self, pin, pi):
+    def __init__(self, pin, nav, pi):
 
         self.pi = pi
         self.pin = pin
@@ -18,3 +18,4 @@ class Rudder:
 
         hz = self.degrees[heading+60]
         self.pi.set_servo_pulsewidth(self.pin, hz)
+

@@ -26,6 +26,8 @@ class Networking:
                 print(f"[{buffer[1]}] : {buffer[0]}")
                 self.recieved.append(buffer[0].decode())
 
+        self.running = False
+
 
     def listener(self):
 

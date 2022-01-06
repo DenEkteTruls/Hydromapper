@@ -2,9 +2,6 @@ import cv2
 import numpy as np
 import pytesseract as pt
 
-
-
-
 cap = cv2.VideoCapture(0)
 depthBuffer = []
 depth = None

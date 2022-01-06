@@ -19,9 +19,10 @@ class Nav:
 
     def __init__(self):
 
+        self.GPS = ""
         self.escs = []
         self.rudders = []
-        self.compass = 0
+        self.GPScompass = 0
         self.position = {}
         self.waypoints = []
         self.retHome = False
@@ -143,19 +144,12 @@ class Nav:
         self.report(f"{len(self.waypoints)} waypoints loaded!")
 
 
-    def update_position(self) -> None:
-
-        x, y = utm.from_latlon(59.51641635461993, 10.1494038105011)[0:2]
-        self.position = {'y': y, 'x': x}
-        # Ikke laget funksjon for dette enda...
-
-
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
         dN = abs(pos1['y']-pos2['y'])
         dE = abs(pos1['x']-pos2['x'])
 
-        return np.rad2deg(np.arctan(dN/dE)) - 1
+        return int(np.rad2deg(np.arctan(dN/dE)) - 1)
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
@@ -212,19 +206,25 @@ class Nav:
         last_time = time.time()
         print_ = False
 
-        for pos, waypoint in enumerate(self.waypoints):
+        for i, waypoint in enumerate(self.waypoints):
             while not self.check_if_close(waypoint):
 
                 if not self.running or self.retHome: break
 
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
-                
-                self.update_position()
+
                 heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
-                if print_: print(f"[AUTOPILOT] {pos}. Heading: {heading}, Distance: {distance}m"); print_ = False
 
+                offset = heading - GPScompass
+                
+                #for rudder in self.rudders:
+                #    rudder.heading_compansation(offset)
+
+                if print_: print(f"[AUTOPILOT] {i}. Heading: {heading}, Distance: {distance}m"); print_ = False
+
+            # code for quick turn to waypoint
 
         self.report("Route has completed!"); time.sleep(1.5)
         self.running = False

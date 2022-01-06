@@ -42,5 +42,5 @@ class ESC:
     def disarm(self):
 
         self.report("DISARMING ...")
-        os.system(f"pigs s {self.esc_pin} 0")
+        self.pi.set_servo_pulsewidth(self.esc_pin, 0)
         self.report("DISARMED")
