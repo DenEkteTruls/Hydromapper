@@ -1,4 +1,5 @@
 import os
+import pigpio
 import numpy as np
 
 
@@ -6,12 +7,14 @@ class ESC:
 
     idx = -1
 
-    def __init__(self, esc_pin, pi):
+    def __init__(self, esc_pin):
 
-        self.pi = pi
+        self.pi = pigpio.pi()
         self.id = ESC.idx + 1; ESC.ids = self.id
         self.esc_pin = esc_pin
         self.speed = 0
+
+        os.system("sudo pigpiod")
 
 
     def report(self, message : str) -> None:
@@ -21,10 +24,9 @@ class ESC:
     
     def set_speed__(self, speed : int):
 
-        speed_ = (speed * 10) + 1000
-
-        self.pi.set_servo_pulsewidth(self.esc_pin, speed_)
-        self.report(f"Speed change -> {speed}")
+        self.speed = 16 + speed
+        self.pi.set_PWM_dutycycle(self.esc_pin, self.speed)
+        print(f"[MOTOR] Speed change -> {self.speed}")
 
 
     def arm(self):
@@ -36,11 +38,11 @@ class ESC:
     
     def set(self, speed):
 
-        self.set_speed__(speed)
+        self.set_speed__(int(speed))
         
 
     def disarm(self):
 
         self.report("DISARMING ...")
-        self.pi.set_servo_pulsewidth(self.esc_pin, 0)
+        self.set_speed__(0)
         self.report("DISARMED")

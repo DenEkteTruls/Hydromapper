@@ -5,7 +5,6 @@ import time
 import numpy as np
 import threading
 
-
 #
 #   0x1000 > 0x1100     : Speed
 #   0x0001              : Arm
@@ -28,8 +27,6 @@ class Nav:
         self.retHome = False
         self.running = True
         self.depth = None
-
-        os.system("sudo pigpiod")
 
 
     def report(self, message : str) -> None:

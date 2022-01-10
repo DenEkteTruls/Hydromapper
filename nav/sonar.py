@@ -25,11 +25,7 @@ class Sonar:
 
             self.nav.depth = self.depth
             
-#            cv2.imshow("frame", gray)
-#            if cv2.waitKey(10) & 0xFF == 27: break
-
         self.cap.release()
- #       cv2.destroyAllWindows()
         self.running = False
 
 
