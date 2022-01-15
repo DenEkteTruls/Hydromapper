@@ -189,7 +189,7 @@ class Nav:
        cords1 = (pos1['lat'], pos1['lng'])
        cords2 = (pos2['lat'], pos2['lng'])
 
-       return geopy.distance.distance(cords1, cords2).m
+       return round(geopy.distance.distance(cords1, cords2).m, 2)
 
 
     def check_if_close(self, pos : dict) -> bool:
