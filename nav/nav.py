@@ -144,7 +144,7 @@ class Nav:
                 #x, y = utm.from_latlon(wp["lat"], wp["lng"])[0:2]
                 x = wp['lat']
                 y = wp['lng']
-                self.waypoints.append({'x': x, 'y': y})
+                self.waypoints.append({'lat': x, 'lng': y})
 
         self.report(f"{len(self.waypoints)} waypoints loaded!")
 
@@ -152,10 +152,10 @@ class Nav:
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
 
-        lat1 = np.radians(pos1['x'])
-        lat2 = np.radians(pos2['x'])
+        lat1 = np.radians(pos1['lat'])
+        lat2 = np.radians(pos2['lat'])
 
-        diffLong = np.radians(pos2['y'] - pos1['y'])
+        diffLong = np.radians(pos2['lng'] - pos1['lng'])
         
         x = np.sin(diffLong) * np.cos(lat2)
         y = np.cos(lat1) * np.sin(lat2) - (np.sin(lat1) * np.cos(lat2) * np.cos(diffLong))
@@ -185,8 +185,8 @@ class Nav:
 
        #return distance
 
-       cords1 = (pos1['x'], pos1['y'])
-       cords2 = (pos2['x'], pos2['y'])
+       cords1 = (pos1['lat'], pos1['lng'])
+       cords2 = (pos2['lat'], pos2['lng'])
 
        return geopy.distance.distance(cords1, cords2).m
 
@@ -253,7 +253,8 @@ class Nav:
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
 
-                if print_: print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tPosition: {self.position}\t{waypoint}"); print_ = False
+                if print_:
+                    print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tPosition: {self.position}\t{waypoint}"); print_ = False
 
             # code for quick turn to waypoint
 
