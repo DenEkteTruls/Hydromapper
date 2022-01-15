@@ -31,12 +31,21 @@ class GPS:
 
             elif "VTG" in data.split(",")[0]:
                 s = data.split(",")
+<<<<<<< HEAD
                 self.nav.speed = float(s[5])
                 try:
                     self.nav.GPScompass = float(s[1])
                 except:
                     pass
 
+=======
+                
+                try:self.nav.speed = float(s[5])
+                except: pass
+
+                try:self.nav.GPScompass = float(s[1])
+                except:pass
+>>>>>>> 201384218a4c336bf32c52f641fff78e5f0a249a
             """
             try:
                 msg = pynmea2.parse(ser.decode()); msg.num_sats
