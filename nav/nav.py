@@ -253,8 +253,12 @@ class Nav:
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
 
+<<<<<<< HEAD
                 if print_: 
                     print(f"[AUTOPILOT] {i}. Heading: {heading}, Distance: {distance}m"); print_ = False
+=======
+                if print_: print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tPosition: {self.position}\t{waypoint}"); print_ = False
+>>>>>>> f2969589f1270a4520c1911872d81ff81ad39379
 
             # code for quick turn to waypoint
 

@@ -26,7 +26,12 @@ nav.start_autopilot()
 
 while nav.running or nav.retHome:
     
+<<<<<<< HEAD
     print(f"HEADING: {nav.GPScompass}\tOFFSET: {nav.offset}\tSPEED: {nav.depth}\tPOSITION: {nav.position}")
+=======
+    #print(f"HEADING: {nav.GPScompass}\tOFFSET: {nav.offset}\tSPEED: {nav.depth}\tPOSITION: {nav.position}")
+    #print(nav.GPS)
+>>>>>>> f2969589f1270a4520c1911872d81ff81ad39379
 
     if not nav.handle_networking(net.recieved):
         nav.running = False
