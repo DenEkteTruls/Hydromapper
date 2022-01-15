@@ -24,7 +24,7 @@ class GPS:
             try:
                 msg = pynmea2.parse(ser.decode()); msg.num_sats
 #                x, y = utm.from_latlon(float(msg.lat)/100, float(msg.lon)/100)[0:2]
-                position = {'y': float(msg.lat)/100, 'x': float(msg.lon)/100}
+                position = {'lat': float(msg.lat)/100, 'lng': float(msg.lon)/100}
 
                 if self.last_position == {}:
                     pass
