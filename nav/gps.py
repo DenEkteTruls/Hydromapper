@@ -33,7 +33,7 @@ class GPS:
 
                 self.nav.position = position
                 self.nav.GPS = msg
-                self.nav.sats = msg.sats
+                self.nav.sats = msg.num_sats
 
                 self.last_position = position
             except:
