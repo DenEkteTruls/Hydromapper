@@ -20,18 +20,21 @@ class GPS:
 
         while self.running:
             
-            ser = self.ser.readline()
+            ser = self.ser.readline() 
             data = ser.decode()
 
             if "GNGGA" in data.split(",")[0]:
-                s = data.split(",")
-                self.nav.position = {'lat': float(s[2])/100 + 0.193328, 'lng': float(s[4])/100 + 0.12404}
-                self.nav.sats = float(s[7])
-                self.GPS = pynmea2.parse(data)
+                try:
+                    s = data.split(",")
+                    self.nav.position = {'lat': float(s[2])/100 + 0.193328, 'lng': float(s[4])/100 + 0.12404}
+                    self.nav.sats = float(s[7])
+                    self.GPS = pynmea2.parse(data)
+                except:
+                    pass
 
             elif "VTG" in data.split(",")[0]:
                 s = data.split(",")
-                
+
                 try:self.nav.speed = float(s[5])
                 except: pass
 
