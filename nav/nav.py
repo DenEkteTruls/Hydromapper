@@ -3,6 +3,7 @@ import json
 import time
 import numpy as np
 import threading
+import geopy.distance
 
 #
 #   0x1000 > 0x1100     : Speed
@@ -167,22 +168,27 @@ class Nav:
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
 
-        R = 6373.0
+       #R = 6373.0
 
-        lat1 = np.radians(pos1['x'])
-        lat2 = np.radians(pos2['x'])
-        lon1 = np.radians(pos1['y'])
-        lon2 = np.radians(pos2['y'])
+       #lat1 = np.radians(pos1['x'])
+       #lat2 = np.radians(pos2['x'])
+       #lon1 = np.radians(pos1['y'])
+       #lon2 = np.radians(pos2['y'])
 
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
+       #dlon = lon2 - lon1
+       #dlat = lat2 - lat1
 
-        a = np.sin(dlat / 2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2)**2
-        c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+       #a = np.sin(dlat / 2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2)**2
+       #c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
 
-        distance = int(R * c * 1000)
+       #distance = int(R * c * 1000)
 
-        return distance
+       #return distance
+
+       cords1 = (pos1['x'], pos1['y'])
+       cords2 = (pos2['x'], pos2['y'])
+
+       return geopy.distance.distance(cords1, cords2).m
 
 
     def check_if_close(self, pos : dict) -> bool:
