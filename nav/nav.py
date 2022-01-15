@@ -259,9 +259,11 @@ class Nav:
 
         threading._start_new_thread(self.start_autopilot_, ())
 
+
     def stop_autopilot(self) -> None:
         
         self.autopilot_running = False
+
 
 #nav = Nav()
 #nav.load_waypoints("waypoints.json")
