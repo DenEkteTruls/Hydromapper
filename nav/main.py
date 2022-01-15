@@ -25,7 +25,7 @@ nav.show_simulated_route()
 
 while nav.running or nav.retHome:
     
-    print(f"HEADING: {nav.GPScompass}\tOFFSET: {nav.offset}\tSPEED: {nav.speed}")
+    print(f"HEADING: {nav.GPScompass}\tOFFSET: {nav.offset}\tSPEED: {nav.depth}")
 
     if not nav.handle_networking(net.recieved):
         nav.running = False
