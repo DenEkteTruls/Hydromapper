@@ -22,7 +22,7 @@ screen = pygame.display.set_mode((500, 500))
 speed = 0
 heading = 0
 
-net = Networking("localhost", 8081)
+net = Networking("192.168.4.1", 8081)
 
 def renderText(text, pos, renderer):
     myfont = pygame.font.SysFont('Comic Sans MS', 50)
