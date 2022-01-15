@@ -24,8 +24,6 @@ class Sonar:
             except  : pass
 
             self.nav.depth = self.depth
-
-            cv2.imshow("frame", gray)
             
         self.cap.release()
         self.running = False
