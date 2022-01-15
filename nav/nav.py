@@ -1,5 +1,4 @@
 import os
-import utm
 import json
 import time
 import numpy as np
