@@ -12,7 +12,7 @@ sonar = Sonar(nav = nav)
 gps = GPS(nav = nav)
 esc = ESC(esc_pin = 18)
 rudder = Rudder(pin = 17, nav = nav, pi = esc.pi)
-net = Networking("192.168.10.106", 8081, 1024)
+net = Networking("192.168.4.1", 8081, 1024)
 gps.start_background_tracking()
 sonar.run_in_background()
 
