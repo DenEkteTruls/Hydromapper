@@ -11,6 +11,7 @@ import threading
 #   0x0010              : Disarm
 #   1x0000              : Return to Home (first waypoint)
 #   1x0001              : Start Autopilot
+#   1x0011              : Stop Autopilot
 #   2x-60 > 2x+60       : Rudder heading (direct)
 #
 
@@ -26,7 +27,9 @@ class Nav:
         self.waypoints = []
         self.retHome = False
         self.running = True
+        self.autopilot_running = True
         self.depth = None
+        self.offset = 0
 
 
     def report(self, message : str) -> None:
@@ -91,6 +94,9 @@ class Nav:
 
             elif msg == "1x0001":
                 self.start_autopilot()
+
+            elif msg == "1x0011":
+                self.stop_autopilot()
 
             elif msg == "stop" or msg == "quit":
                 self.retHome = False
@@ -229,7 +235,7 @@ class Nav:
         for i, waypoint in enumerate(self.waypoints):
             while not self.check_if_close(waypoint):
 
-                if not self.running or self.retHome: break
+                if not self.running or not self.autopilot_running or self.retHome: break
 
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
@@ -237,7 +243,7 @@ class Nav:
                 heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
 
-                offset = heading - GPScompass
+                self.offset = heading - self.GPScompass
                 
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
@@ -254,6 +260,9 @@ class Nav:
 
         threading._start_new_thread(self.start_autopilot_, ())
 
+    def stop_autopilot(self) -> None:
+        
+        self.autopilot_running = False
 
 #nav = Nav()
 #nav.load_waypoints("waypoints.json")
