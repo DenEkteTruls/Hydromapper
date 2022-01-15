@@ -30,6 +30,7 @@ class Nav:
         self.autopilot_running = True
         self.depth = None
         self.offset = 0
+        self.sats = 0
 
 
     def report(self, message : str) -> None:
@@ -254,7 +255,8 @@ class Nav:
                 #    rudder.heading_compansation(offset)
 
                 if print_:
-                    print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tPosition: {self.position}\t{waypoint}"); print_ = False
+                    print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
+                    print(self.GPS)
 
             # code for quick turn to waypoint
 
