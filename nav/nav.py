@@ -233,7 +233,7 @@ class Nav:
 
         for i, waypoint in enumerate(self.waypoints):
             while not self.check_if_close(waypoint):
-
+                
                 if not self.running or not self.autopilot_running or self.retHome: break
 
                 if time.time() - last_time > 1:
@@ -247,7 +247,8 @@ class Nav:
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
 
-                if print_: print(f"[AUTOPILOT] {i}. Heading: {heading}, Distance: {distance}m"); print_ = False
+                if print_: 
+                    print(f"[AUTOPILOT] {i}. Heading: {heading}, Distance: {distance}m"); print_ = False
 
             # code for quick turn to waypoint
 
