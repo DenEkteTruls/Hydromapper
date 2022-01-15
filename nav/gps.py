@@ -21,6 +21,19 @@ class GPS:
         while self.running:
             
             ser = self.ser.readline()
+            data = ser.decode()
+
+            if "GNGGA" in data.split(",")[0]:
+                s = data.split(",")
+                self.nav.position = {'lat': float(s[2])/100 + 0.193328, 'lng': float(s[4])/100 + 0.12404}
+                self.nav.sats = float(s[7])
+                self.GPS = pynmea2.parse(data)
+
+            elif "VTG" in data.split(",")[0]:
+                s = data.split(",")
+                self.nav.speed = float(s[5])
+                self.nav.GPScompass = float(s[1])
+            """
             try:
                 msg = pynmea2.parse(ser.decode()); msg.num_sats
 #                x, y = utm.from_latlon(float(msg.lat)/100, float(msg.lon)/100)[0:2]
@@ -38,6 +51,7 @@ class GPS:
                 self.last_position = position
             except:
                 pass
+            """
 
         self.running = False
 
