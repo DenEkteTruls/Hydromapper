@@ -10,7 +10,7 @@ from gps import GPS
 nav = Nav()
 sonar = Sonar(nav = nav)
 gps = GPS(nav = nav)
-esc = ESC(esc_pin = 4)
+esc = ESC(esc_pin = 18)
 rudder = Rudder(pin = 17, nav = nav, pi = esc.pi)
 net = Networking("192.168.10.106", 8081, 1024)
 gps.start_background_tracking()
@@ -21,8 +21,6 @@ nav.add_rudder(rudder)
 nav.load_waypoints("waypoints.json")
 net.listener()
 
-nav = Nav()
-nav.load_waypoints("waypoints.json")
 nav.show_simulated_route()
 
 while nav.running or nav.retHome:

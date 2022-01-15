@@ -135,7 +135,9 @@ class Nav:
         with open(filename, "r") as f:
             waypoints = json.load(f)
             for wp in waypoints:
-                x, y = utm.from_latlon(wp["lat"], wp["lng"])[0:2]
+                #x, y = utm.from_latlon(wp["lat"], wp["lng"])[0:2]
+                x = wp['lat']
+                y = wp['lng']
                 self.waypoints.append({'x': x, 'y': y})
 
         self.report(f"{len(self.waypoints)} waypoints loaded!")
@@ -143,18 +145,39 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
-        dN = abs(pos1['y']-pos2['y'])
-        dE = abs(pos1['x']-pos2['x'])
 
-        return int(np.rad2deg(np.arctan(dN/dE)) - 1)
+        lat1 = np.radians(pos1['x'])
+        lat2 = np.radians(pos2['x'])
+
+        diffLong = np.radians(pos2['y'] - pos1['y'])
+        
+        x = np.sin(diffLong) * np.cos(lat2)
+        y = np.cos(lat1) * np.sin(lat2) - (np.sin(lat1) * np.cos(lat2) * np.cos(diffLong))
+
+        initial_bearing = np.rad2deg(np.arctan2(x, y))
+        compass_bearing = (initial_bearing + 360) % 360
+
+        return int(compass_bearing)
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
 
-        dN = abs(pos1['y']-pos2['y'])
-        dE = abs(pos1['x']-pos2['x'])
+        R = 6373.0
 
-        return np.sqrt(dN**2 + dE**2)
+        lat1 = np.radians(pos1['x'])
+        lat2 = np.radians(pos2['x'])
+        lon1 = np.radians(pos1['y'])
+        lon2 = np.radians(pos2['y'])
+
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+
+        a = np.sin(dlat / 2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2)**2
+        c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+
+        distance = int(R * c * 1000)
+
+        return distance
 
 
     def check_if_close(self, pos : dict) -> bool:
@@ -185,7 +208,6 @@ class Nav:
             if time.time() - last_time > 1:
                 print_ = True; last_time = time.time()
 
-            self.update_position()
             heading = self.get_heading(self.position, self.waypoints[0])
             distance = self.get_distance(self.position, self.waypoints[0])
             if print_: print(f"[AUTOPILOT] ** RETURNING HOME **  Distance: {distance}"); print_ = False
@@ -194,6 +216,7 @@ class Nav:
     def return_home(self) -> None:
 
         threading._start_new_thread(self.return_home_, ())
+
 
 
     def start_autopilot_(self) -> None:
