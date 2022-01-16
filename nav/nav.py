@@ -152,6 +152,7 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
+        print(pos1['lat'])
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
 
         bearing = a['azi1']
