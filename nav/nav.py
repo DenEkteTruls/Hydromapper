@@ -187,6 +187,7 @@ class Nav:
                 f.write(json.dump(f"{self.sample_ticker},{position},{depth},{course}"))
             self.sample_ticker += 1
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
+            print(f"[SAVE DATA]\t{self.sample_ticker},{position},{depth},{course}")
 
 
     def show_simulated_route(self) -> None:
@@ -252,7 +253,7 @@ class Nav:
                 self.save_data(self.position, self.depth, self.course, self.depthshot)
                 
                 if print_:
-                    print(f"[AUTOPILOT] {i}\Course: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
+                    print(f"[AUTOPILOT] {i}\tCourse: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
 
             # code for quick turn to waypoint
 
