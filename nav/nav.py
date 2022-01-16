@@ -187,7 +187,7 @@ class Nav:
                 f.write(json.dump(f"{self.sample_ticker},{position},{depth},{course}"))
             self.sample_ticker += 1
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
-            
+
 
     def show_simulated_route(self) -> None:
 
@@ -245,8 +245,8 @@ class Nav:
                 #for esc in self.escs:
                 #    esc.distance_compansation(distance)
 
-                for rudder in self.rudders:
-                    rudder.heading_compansation(self.offset)
+                #for rudder in self.rudders:
+                #    rudder.heading_compansation(self.offset)
 
                 # saving data
                 self.save_data(self.position, self.depth, self.course, self.depthshot)
