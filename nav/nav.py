@@ -23,7 +23,7 @@ class Nav:
         self.escs = []
         self.rudders = []
         self.course = 0
-        self.position = {}
+        self.position = {"lat":59.4832356,"lng":10.3100029}
         self.waypoints = []
         self.retHome = False
         self.running = True
@@ -152,7 +152,6 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
-        print(pos1['lat'])
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
 
         bearing = a['azi1']
@@ -163,24 +162,8 @@ class Nav:
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
 
-       #R = 6373.0
-
-       #lat1 = np.radians(pos1['x'])
-       #lat2 = np.radians(pos2['x'])
-       #lon1 = np.radians(pos1['y'])
-       #lon2 = np.radians(pos2['y'])
-
-       #dlon = lon2 - lon1
-       #dlat = lat2 - lat1
-
-       #a = np.sin(dlat / 2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2)**2
-       #c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-
-       #distance = int(R * c * 1000)
-
-       #return distance
-        print(pos1['lat'])
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+
         return round(a['s12'], 2)
 
 
