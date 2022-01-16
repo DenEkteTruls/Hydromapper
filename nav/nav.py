@@ -153,7 +153,6 @@ class Nav:
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
 
-        print(pos1.lat)
         lat1 = np.radians(pos1['lat'])
         lat2 = np.radians(pos2['lat'])
 
