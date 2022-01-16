@@ -245,8 +245,10 @@ class Nav:
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
 
-                heading = self.get_heading(self.position, waypoint)
+                #heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
+
+                heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
                 self.offset = heading - self.GPScompass
                 
