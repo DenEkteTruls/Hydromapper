@@ -3,7 +3,7 @@ import json
 import time
 import numpy as np
 import threading
-import geopy.distance
+from geographiclib.geodesic import Geodesic
 
 #
 #   0x1000 > 0x1100     : Speed
@@ -152,6 +152,8 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
+        a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+        """
         lat1 = np.radians(pos1['lat'])
         lat2 = np.radians(pos2['lat'])
 
@@ -162,8 +164,10 @@ class Nav:
 
         initial_bearing = np.rad2deg(np.arctan2(x, y))
         compass_bearing = (initial_bearing + 360) % 360
+        """
+        #return int(compass_bearing)
 
-        return int(compass_bearing)
+        return a['azi1']
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
@@ -185,10 +189,8 @@ class Nav:
 
        #return distance
 
-       cords1 = (pos1['lat'], pos1['lng'])
-       cords2 = (pos2['lat'], pos2['lng'])
-
-       return round(geopy.distance.distance(cords1, cords2).m, 2)
+        a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+        return round(a['s12'], 2)
 
 
     def check_if_close(self, pos : dict) -> bool:
