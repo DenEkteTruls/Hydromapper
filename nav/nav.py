@@ -225,7 +225,7 @@ class Nav:
                 distance = self.get_distance(self.position, waypoint)
                 heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
-                self.offset = heading - self.course
+                self.offset = int(heading - self.course)
                 
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
