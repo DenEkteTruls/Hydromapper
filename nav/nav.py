@@ -197,13 +197,15 @@ class Nav:
 
             heading = self.get_heading(self.position, self.waypoints[0])
             distance = self.get_distance(self.position, self.waypoints[0])
+
+
+
             if print_: print(f"[AUTOPILOT] ** RETURNING HOME **  Distance: {distance}"); print_ = False
 
     
     def return_home(self) -> None:
 
         threading._start_new_thread(self.return_home_, ())
-
 
 
     def start_autopilot_(self) -> None:
@@ -227,8 +229,11 @@ class Nav:
 
                 self.offset = int(heading - self.course)
 
-                for rudder in self.rudders:
-                    rudder.heading_compansation(self.offset)
+                #for esc in self.escs:
+                #    esc.set(40)
+
+                #for rudder in self.rudders:
+                    #rudder.heading_compansation(self.offset)
                 
                 if print_:
                     print(f"[AUTOPILOT] {i}\Course: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
@@ -237,6 +242,8 @@ class Nav:
 
         self.report("Route has completed!"); time.sleep(1.5)
         self.running = False
+
+        self.return_home()
 
 
     def start_autopilot(self) -> None:

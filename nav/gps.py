@@ -43,26 +43,6 @@ class GPS:
 
                 self.last_position = self.nav.position
 
-            """
-            try:
-                msg = pynmea2.parse(ser.decode()); msg.num_sats
-#                x, y = utm.from_latlon(float(msg.lat)/100, float(msg.lon)/100)[0:2]
-                position = {'lat': float(msg.lat)/100, 'lng': float(msg.lon)/100}
-
-                if self.last_position == {}:
-                    pass
-                else:
-                    self.nav.GPScompass = self.nav.get_heading(self.last_position, position)
-
-                self.nav.position = position
-                self.nav.GPS = msg
-                self.nav.sats = msg.num_sats
-
-                self.last_position = position
-            except:
-                pass
-            """
-
         self.running = False
 
 
