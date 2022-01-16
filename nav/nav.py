@@ -191,8 +191,8 @@ class Nav:
 
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
         bearing = a['s12']
-        if bearing < 0:
-            bearing += 360
+        #if bearing < 0:
+        #    bearing += 360
         return round(bearing, 2)
 
 
