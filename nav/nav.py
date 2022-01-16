@@ -238,6 +238,14 @@ class Nav:
     def start_autopilot_(self) -> None:
 
         self.report("Starting autopilot ..."); time.sleep(1.5)
+
+        print("[AUTOPILOT] Searching for GPS ...")
+        while len(self.position) == 0:
+            try:
+                heading = self.get_heading({"lat":59.4232356,"lng":10.3100029}, {"lat":59.4832356,"lng":10.3100029})
+            except:
+                continue
+            print("[AUTOPILOT] Found GPS!")
         
         last_time = time.time()
         print_ = False
@@ -252,7 +260,6 @@ class Nav:
 
                 #heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
-
                 heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
                 self.offset = heading - self.GPScompass
