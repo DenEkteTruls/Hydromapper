@@ -167,7 +167,7 @@ class Nav:
         """
         #return int(compass_bearing)
 
-        return a['azi1']
+        return round(a['azi1'], 2)
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
