@@ -153,19 +153,6 @@ class Nav:
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
-        """
-        lat1 = np.radians(pos1['lat'])
-        lat2 = np.radians(pos2['lat'])
-
-        diffLong = np.radians(pos2['lng'] - pos1['lng'])
-        
-        x = np.sin(diffLong) * np.cos(lat2)
-        y = np.cos(lat1) * np.sin(lat2) - (np.sin(lat1) * np.cos(lat2) * np.cos(diffLong))
-
-        initial_bearing = np.rad2deg(np.arctan2(x, y))
-        compass_bearing = (initial_bearing + 360) % 360
-        """
-        #return int(compass_bearing)
 
         bearing = a['azi1']
         if bearing < 0:
@@ -238,15 +225,6 @@ class Nav:
     def start_autopilot_(self) -> None:
 
         self.report("Starting autopilot ..."); time.sleep(1.5)
-
-        print("[AUTOPILOT] Searching for GPS ...")
-        while len(self.position) == 0:
-            try:
-                heading = self.get_heading({"lat":59.4232356,"lng":10.3100029}, {"lat":59.4832356,"lng":10.3100029})
-            except:
-                continue
-            print("[AUTOPILOT] Found GPS!")
-            break
         
         last_time = time.time()
         print_ = False
