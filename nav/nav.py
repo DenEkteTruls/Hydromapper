@@ -226,10 +226,10 @@ class Nav:
                 heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
                 self.offset = int(heading - self.course)
-                
-                #for rudder in self.rudders:
-                #    rudder.heading_compansation(offset)
 
+                for rudder in self.rudders:
+                    rudder.heading_compansation(self.offset)
+                
                 if print_:
                     print(f"[AUTOPILOT] {i}\Course: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
 
