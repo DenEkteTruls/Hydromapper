@@ -12,7 +12,12 @@ class ESC:
         self.pi = pigpio.pi()
         self.id = ESC.idx + 1; ESC.ids = self.id
         self.esc_pin = esc_pin
-        self.speed = 0 
+        self.speed = 0
+
+        self.no_speed = 0
+        self.low_speed = 20
+        self.mid_speed = 70
+        self.high_speed = 120
 
 
     def report(self, message : str) -> None:
@@ -51,3 +56,10 @@ class ESC:
         self.report("DISARMING ...")
         self.set_speed__(0)
         self.report("DISARMED")
+
+
+    def distance_compansation(self, distance):
+
+        if distance > 6:    self.set(self.high_speed)
+        elif distance > 3:  self.set(self.mid_speed)
+        elif distance > 2:  self.set(self.low_speed)

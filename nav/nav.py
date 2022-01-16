@@ -1,6 +1,8 @@
 import os
+import cv2
 import json
 import time
+from turtle import position
 import numpy as np
 import threading
 from geographiclib.geodesic import Geodesic
@@ -29,7 +31,9 @@ class Nav:
         self.running = True
         self.autopilot_running = True
         self.depth = None
+        self.depthshot = None
         self.offset = 0
+        self.sample_ticker = 0
         self.sats = 0
 
 
@@ -173,8 +177,17 @@ class Nav:
             distance = self.get_distance(self.position, pos)
             if distance <= 2: # 2m^2
                 return True
-        return False
+        return 
+        
+    
+    def save_data(self, position, depth, course, image):
 
+        if depth and image:
+            with open("saved_data.json", "a") as f:
+                f.write(json.dump(f"{self.sample_ticker},{position},{depth},{course}"))
+            self.sample_ticker += 1
+            cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
+            
 
     def show_simulated_route(self) -> None:
 
@@ -230,10 +243,13 @@ class Nav:
                 self.offset = int(heading - self.course)
 
                 #for esc in self.escs:
-                #    esc.set(40)
+                #    esc.distance_compansation(distance)
 
-                #for rudder in self.rudders:
-                    #rudder.heading_compansation(self.offset)
+                for rudder in self.rudders:
+                    rudder.heading_compansation(self.offset)
+
+                # saving data
+                self.save_data(self.position, self.depth, self.course, self.depthshot)
                 
                 if print_:
                     print(f"[AUTOPILOT] {i}\Course: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False

@@ -25,6 +25,7 @@ class Sonar:
             except  : pass
 
             self.nav.depth = self.depth
+            self.nav.depthshot = gray
             
         self.cap.release()
         self.running = False
