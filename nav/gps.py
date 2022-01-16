@@ -26,7 +26,7 @@ class GPS:
             if "GNGGA" in data.split(",")[0]:
                 try:
                     s = data.split(",")
-                    self.nav.position = {'lat': float(s[2])/100 + 0.19296790719, 'lng': float(s[4])/100 + 0.12404 - 0.00126612269}
+                    self.nav.position = {'lat': float(s[2])/100 + 0.193328, 'lng': float(s[4])/100 + 0.12404}
                     self.nav.sats = float(s[7])
                     self.GPS = pynmea2.parse(data)
                 except:
