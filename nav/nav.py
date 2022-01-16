@@ -246,6 +246,7 @@ class Nav:
             except:
                 continue
             print("[AUTOPILOT] Found GPS!")
+            break
         
         last_time = time.time()
         print_ = False
