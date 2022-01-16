@@ -167,7 +167,10 @@ class Nav:
         """
         #return int(compass_bearing)
 
-        return round(a['azi1'], 2)
+        bearing = a['azi1']
+        if bearing < 0:
+            bearing += 360
+        return round(bearing, 2)
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
@@ -190,10 +193,7 @@ class Nav:
        #return distance
 
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
-        bearing = a['s12']
-        #if bearing < 0:
-        #    bearing += 360
-        return round(bearing, 2)
+        return round(a['s12'], 2)
 
 
     def check_if_close(self, pos : dict) -> bool:
