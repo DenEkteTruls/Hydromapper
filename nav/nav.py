@@ -190,7 +190,10 @@ class Nav:
        #return distance
 
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
-        return round(a['s12'], 2)
+        bearing = a['s12']
+        if bearing < 0:
+            bearing += 360
+        return round(bearing, 2)
 
 
     def check_if_close(self, pos : dict) -> bool:
