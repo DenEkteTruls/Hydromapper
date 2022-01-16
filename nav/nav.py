@@ -179,7 +179,7 @@ class Nav:
        #distance = int(R * c * 1000)
 
        #return distance
-
+        print(pos1['lat'])
         a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
         return round(a['s12'], 2)
 
