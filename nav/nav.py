@@ -225,13 +225,13 @@ class Nav:
                 distance = self.get_distance(self.position, waypoint)
                 heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
-                self.offset = heading - self.GPScompass
+                self.offset = heading - self.course
                 
                 #for rudder in self.rudders:
                 #    rudder.heading_compansation(offset)
 
                 if print_:
-                    print(f"[AUTOPILOT] {i}\tHeading: {heading}\tGPScompass: {self.GPScompass}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
+                    print(f"[AUTOPILOT] {i}\tHeading: {heading}\Course: {self.course}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
                     print(self.GPS)
 
             # code for quick turn to waypoint
