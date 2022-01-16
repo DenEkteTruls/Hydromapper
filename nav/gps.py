@@ -38,8 +38,9 @@ class GPS:
                 try:self.nav.speed = float(s[5])
                 except: pass
 
-                try:self.nav.GPScompass = float(s[1])
-                except:pass
+                self.nav.course = self.nav.get_heading(self.nav.position, self.last_position)
+                self.last_position = self.nav.position
+
             """
             try:
                 msg = pynmea2.parse(ser.decode()); msg.num_sats

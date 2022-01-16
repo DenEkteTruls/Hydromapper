@@ -22,7 +22,7 @@ class Nav:
         self.GPS = ""
         self.escs = []
         self.rudders = []
-        self.GPScompass = 0
+        self.course = 0
         self.position = {}
         self.waypoints = []
         self.retHome = False
