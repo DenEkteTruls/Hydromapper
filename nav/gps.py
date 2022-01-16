@@ -38,7 +38,9 @@ class GPS:
                 try:self.nav.speed = float(s[5])
                 except: pass
 
-                self.nav.course = self.nav.get_heading(self.nav.position, self.last_position)
+                if not self.last_position:
+                    self.nav.course = self.nav.get_heading(self.nav.position, self.last_position)
+                    
                 self.last_position = self.nav.position
 
             """
