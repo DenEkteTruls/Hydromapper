@@ -251,6 +251,7 @@ class Nav:
 
                 # saving data
                 self.save_data(self.position, self.depth, self.course, self.depthshot)
+                print(self.depth)
                 
                 if print_:
                     print(f"[AUTOPILOT] {i}\tCourse: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
