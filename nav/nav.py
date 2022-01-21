@@ -21,11 +21,9 @@ class Nav:
 
     def __init__(self):
 
-        self.GPS = ""
         self.escs = []
         self.rudders = []
-        self.course = 0
-        self.position = {"lat":59.4832356,"lng":10.3100029}
+        self.position = {}
         self.waypoints = []
         self.retHome = False
         self.running = True
@@ -34,7 +32,8 @@ class Nav:
         self.depthshot = None
         self.offset = 0
         self.sample_ticker = 0
-        self.sats = 0
+        self.heading = -1
+        self.sats = -1
 
 
     def report(self, message : str) -> None:
@@ -146,7 +145,6 @@ class Nav:
         with open(filename, "r") as f:
             waypoints = json.load(f)
             for wp in waypoints:
-                #x, y = utm.from_latlon(wp["lat"], wp["lng"])[0:2]
                 x = wp['lat']
                 y = wp['lng']
                 self.waypoints.append({'lat': x, 'lng': y})
@@ -180,13 +178,13 @@ class Nav:
         return 
         
     
-    def save_data(self, position, depth, course, image):
+    def save_data(self, position, depth, heading, image):
 
         if depth and image:
             with open("saved_data.json", "a") as f:
-                f.write(json.dump(f"{self.sample_ticker},{position},{depth},{course}"))
+                f.write(json.dump(f"{self.sample_ticker},{position},{depth},{heading}"))
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
-            print(f"[SAVE DATA]\t{self.sample_ticker},{position},{depth},{course}")
+            print(f"[SAVE DATA]\t{self.sample_ticker},{position},{depth},{heading}")
             self.sample_ticker += 1
 
 
@@ -239,17 +237,14 @@ class Nav:
 
                 heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
-                #heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
-                self.offset = int(heading - self.course)
+                self.offset = int(heading - self.heading)
 
                 #for esc in self.escs:
                 #    esc.distance_compansation(distance)
 
-                #for rudder in self.rudders:
-                #    rudder.heading_compansation(self.offset)
-
-                # saving data
+                for rudder in self.rudders:
+                    rudder.heading_compansation(self.offset)
                 
                 if print_:
                     self.save_data(self.position, self.depth, self.course, self.depthshot)

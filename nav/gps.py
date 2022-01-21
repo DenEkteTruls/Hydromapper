@@ -8,10 +8,9 @@ class GPS:
 
         self.nav = nav
         self.running = True
-        self.last_position = {}
         
         try:
-            self.ser = serial.Serial("/dev/ttyS0", 9600)
+            self.ser = serial.Serial("/dev/ttyS0", 115200)
         except:
             print("[ERROR] Cannot find GPS")
 
@@ -20,28 +19,14 @@ class GPS:
 
         while self.running:
             
-            ser = self.ser.readline() 
+            ser = self.ser.readline()
             data = ser.decode()
 
-            if "GNGGA" in data.split(",")[0]:
-                try:
-                    s = data.split(",")
-                    self.nav.position = {'lat': float(s[2])/100 + 0.193328, 'lng': float(s[4])/100 + 0.12404}
-                    self.nav.sats = float(s[7])
-                    self.GPS = pynmea2.parse(data)
-                except:
-                    pass
-
-            elif "VTG" in data.split(",")[0]:
-                s = data.split(",")
-
-                try:self.nav.speed = float(s[5])
-                except: pass
-
-                if not self.last_position == {}:
-                    self.nav.course = self.nav.get_heading(self.nav.position, self.last_position)
-
-                self.last_position = self.nav.position
+            items = data.split(",")
+            self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
+            self.nav.heading = float(items[8])
+            self.nav.speed = float(items[4])
+            self.nav.sats = float(items[1])
 
         self.running = False
 
