@@ -10,7 +10,7 @@ class GPS:
         self.running = True
         
         try:
-            self.ser = serial.Serial("/dev/ttyS0", 115200)
+            self.ser = serial.Serial("/dev/ttyUSB0", 115200)
         except:
             print("[ERROR] Cannot find GPS")
 
