@@ -168,9 +168,11 @@ class Nav:
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
 
-        a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
-
-        return round(a['s12'], 2)
+        if len(pos1) > 0 and len(pos2) > 0:
+            a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+            return round(a['s12'], 2)
+        else:
+            return False
 
 
     def check_if_close(self, pos : dict) -> bool:
