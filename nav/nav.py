@@ -154,12 +154,16 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
-        a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+        if len(pos1) > 0 and len(pos2) > 0:
 
-        bearing = a['azi1']
-        if bearing < 0:
-            bearing += 360
-        return round(bearing, 2)
+            a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
+
+            bearing = a['azi1']
+            if bearing < 0:
+                bearing += 360
+            return round(bearing, 2)
+        else:
+            return False
 
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
