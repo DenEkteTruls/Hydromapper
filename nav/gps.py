@@ -23,6 +23,7 @@ class GPS:
             data = ser.decode()
 
             items = data.split(",")
+            print(items)
             self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
             self.nav.heading = float(items[8])
             self.nav.speed = float(items[4])
