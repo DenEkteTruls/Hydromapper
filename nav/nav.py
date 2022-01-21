@@ -253,8 +253,8 @@ class Nav:
                     rudder.heading_compansation(self.offset)
                 
                 if print_:
-                    self.save_data(self.position, self.depth, self.course, self.depthshot)
-                    print(f"[AUTOPILOT] {i}\tCourse: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
+                    self.save_data(self.position, self.depth, self.heading, self.depthshot)
+                    print(f"[AUTOPILOT] {i}\tSatellites: {self.sats}\tCourse: {self.heading}\tOffset: {self.offset}\tDistance: {distance}m\tPosition: {self.position}"); print_ = False
 
             # code for quick turn to waypoint
 
