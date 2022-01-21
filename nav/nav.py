@@ -187,7 +187,7 @@ class Nav:
     
     def save_data(self, position, depth, heading, image):
 
-        if depth and image:
+        if depth and image.any():
             with open("saved_data.json", "a") as f:
                 f.write(json.dump(f"{self.sample_ticker},{position},{depth},{heading}"))
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
