@@ -237,9 +237,9 @@ class Nav:
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
 
-                #heading = self.get_heading(self.position, waypoint)
+                heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
-                heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
+                #heading = self.get_heading(self.position, {"lat":59.4832356,"lng":10.3100029})
 
                 self.offset = int(heading - self.course)
 
@@ -250,9 +250,9 @@ class Nav:
                 #    rudder.heading_compansation(self.offset)
 
                 # saving data
-                self.save_data(self.position, self.depth, self.course, self.depthshot)
                 
                 if print_:
+                    self.save_data(self.position, self.depth, self.course, self.depthshot)
                     print(f"[AUTOPILOT] {i}\tCourse: {self.course}\tOffset: {self.offset}\tDistance: {distance}m\tSatellites: {self.sats}\tPosition: {self.position}\t{waypoint}"); print_ = False
 
             # code for quick turn to waypoint
