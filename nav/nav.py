@@ -29,7 +29,7 @@ class Nav:
         self.retHome = False
         self.running = True
         self.autopilot_running = True
-        self.depth = None
+        self.depth = -1
         self.depthshot = None
         self.offset = 0
         self.sample_ticker = 0
@@ -187,7 +187,7 @@ class Nav:
     
     def save_data(self, position, depth, heading, image):
 
-        if depth and image.any():
+        if not depth == -1 and image.any():
             with open("saved_data.json", "a") as f:
                 f.write(json.dump(f"{self.sample_ticker},{position},{depth},{heading}"))
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
