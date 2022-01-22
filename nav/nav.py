@@ -246,7 +246,6 @@ class Nav:
                 distance = self.get_distance(self.position, waypoint)
 
                 self.offset = int(heading - self.heading)
-                print(heading, self.heading, self.offset)
                 print(f"Heading to WP: {heading}\tHeading: {self.heading}\tOffset: {self.offset}\tDistance: {distance}")
 
                 #for esc in self.escs:
