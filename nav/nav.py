@@ -246,7 +246,7 @@ class Nav:
                 distance = self.get_distance(self.position, waypoint)
 
                 self.offset = int(heading - self.heading)
-                print(f"Heading to WP: {heading}\tHeading: {round(self.heading, 2)}\tOffset: {self.offset}\tDistance: {distance}")
+                #print(f"Heading to WP: {heading}\tHeading: {round(self.heading, 2)}\tOffset: {self.offset}\tDistance: {distance}")
 
                 #for esc in self.escs:
                 #    esc.distance_compansation(distance)
@@ -257,7 +257,7 @@ class Nav:
                 if print_:
                     pass
                     #self.save_data(self.position, self.depth, self.heading, self.depthshot)
-                    #print(f"[AUTOPILOT] {i}\tSatellites: {self.sats}\tHeading: {self.heading}\tOffset: {self.offset}\tDistance: {distance}m\tPosition: {self.position}"); print_ = False
+                    print(f"[AUTOPILOT] {i}\tSatellites: {self.sats}\tHeading: {self.heading}\tOffset: {self.offset}\tDistance: {distance}m\tPosition: {self.position}"); print_ = False
 
             # code for quick turn to waypoint (or not)
 
