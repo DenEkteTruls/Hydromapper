@@ -252,8 +252,6 @@ class Nav:
 
                 for rudder in self.rudders:
                     rudder.heading_compansation(self.offset)
-                
-                print(self.GPS)
 
                 if print_:
                     self.save_data(self.position, self.depth, self.heading, self.depthshot)
