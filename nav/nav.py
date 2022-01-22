@@ -254,7 +254,7 @@ class Nav:
                     rudder.heading_compansation(self.offset)
 
                 if print_:
-                    print(len(self.GPS.split(",")), self.GPS)
+                    print(len(self.GPS.split(","))[2], len(self.GPS.split(","))[3])
                     self.save_data(self.position, self.depth, self.heading, self.depthshot)
                     print(f"[AUTOPILOT] {i}\tSatellites: {self.sats}\tHeading: {self.heading}\tOffset: {self.offset}\tDistance: {distance}m\tPosition: {self.position}"); print_ = False
 
