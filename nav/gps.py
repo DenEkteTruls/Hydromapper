@@ -1,5 +1,4 @@
 import serial
-import pynmea2
 import threading
 
 class GPS:
