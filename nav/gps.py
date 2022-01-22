@@ -8,6 +8,7 @@ class GPS:
 
         self.nav = nav
         self.running = True
+        self.GPS = None
         
         try:
             self.ser = serial.Serial("/dev/ttyUSB0", 115200)
@@ -22,7 +23,7 @@ class GPS:
             ser = self.ser.readline()
             data = ser.decode()
 
-            print(f"[GPS] {data}")
+            self.GPS = data
 
             items = data.split(",")
             self.nav.GPS = data
