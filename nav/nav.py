@@ -189,7 +189,7 @@ class Nav:
 
         if not depth == -1 and image.any():
             with open("saved_data.json", "a") as f:
-                f.write("{self.sample_ticker},{position},{depth},{heading}")
+                f.write(f"{self.sample_ticker},{position},{depth},{heading}")
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
             print(f"[SAVE DATA]\t{self.sample_ticker},{position},{depth},{heading}")
             self.sample_ticker += 1
@@ -257,7 +257,7 @@ class Nav:
                     self.save_data(self.position, self.depth, self.heading, self.depthshot)
                     print(f"[AUTOPILOT] {i}\tSatellites: {self.sats}\tCourse: {self.heading}\tOffset: {self.offset}\tDistance: {distance}m\tPosition: {self.position}"); print_ = False
 
-            # code for quick turn to waypoint
+            # code for quick turn to waypoint (or not)
 
         self.report("Route has completed!"); time.sleep(1.5)
         self.running = False
