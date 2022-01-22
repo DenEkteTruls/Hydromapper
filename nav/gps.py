@@ -25,15 +25,16 @@ class GPS:
             self.GPS = data
 
             items = data.split(",")
-            self.nav.GPS = data
-            if items[2] == '' and items[3] == '':
-                self.nav.position = {'lat': None, 'lng': None}
-            else:
-                self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
-            self.nav.heading = float(items[8])
-            self.nav.speed = float(items[4])
-            self.nav.sats = float(items[1])
-
+            if len(items) > 7:
+                self.nav.GPS = data
+                if items[2] == '' and items[3] == '':
+                    self.nav.position = {'lat': None, 'lng': None}
+                else:
+                    self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
+                self.nav.heading = float(items[8])
+                self.nav.speed = float(items[4])
+                self.nav.sats = float(items[1])
+    
         self.running = False
 
 
