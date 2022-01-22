@@ -17,15 +17,15 @@ class Sonar:
 
         while self.running:
 
-            frame = self.cap.read()[1]
+            """frame = self.cap.read()[1]
             gray = cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), (480, 360))
             d = pt.image_to_data(gray, config = "--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789.", output_type = pt.Output.DICT)
 
             try     : self.depth = float(d['text'][4])
             except  : pass
 
-            self.nav.depth = self.depth
-            self.nav.depthshot = gray
+            self.nav.depth = self.depth"""
+            self.nav.depthshot = None #gray
             
         self.cap.release()
         self.running = False
