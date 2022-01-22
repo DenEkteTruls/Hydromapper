@@ -25,7 +25,7 @@ class GPS:
             self.GPS = data
 
             items = data.split(",")
-            if len(items) > 7:
+            if len(items) > 0:
                 self.nav.GPS = data
                 if items[2] == '' and items[3] == '':
                     self.nav.position = {'lat': None, 'lng': None}
@@ -34,7 +34,7 @@ class GPS:
                 self.nav.heading = float(items[8])
                 self.nav.speed = float(items[4])
                 self.nav.sats = float(items[1])
-    
+
         self.running = False
 
 
