@@ -34,7 +34,10 @@ class GPS:
                 try: self.nav.speed = float(items[4])
                 except: self.nav.speed = -1
 
-                try: self.nav.heading = -(float(items[8])-360)
+                try:
+                    a = float(items[8]) + 90
+                    if a > 360: a -= 360
+                    self.nav.heading = a
                 except: self.nav.heading = -1
 
                 try: self.nav.sats = float(items[1])

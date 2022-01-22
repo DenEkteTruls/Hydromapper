@@ -217,7 +217,13 @@ class Nav:
             heading = self.get_heading(self.position, self.waypoints[0])
             distance = self.get_distance(self.position, self.waypoints[0])
 
+            self.offset = int(heading - self.heading)
 
+            #for esc in self.escs:
+            #    esc.distance_compansation(distance)
+
+            for rudder in self.rudders:
+                rudder.heading_compansation(self.offset)
 
             if print_: print(f"[AUTOPILOT] ** RETURNING HOME **  Distance: {distance}"); print_ = False
 
