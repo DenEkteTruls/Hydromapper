@@ -155,7 +155,7 @@ class Nav:
 
     def get_heading(self, pos1 : dict, pos2 : dict) -> int:
 
-        if (len(pos1) > 0 and len(pos2) > 0) or pos1['lat'] == None or pos2['lat'] == None:
+        if (len(pos1) > 0 and len(pos2) > 0) or not pos1['lat'] == None or not pos2['lat'] == None:
 
             a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
 
@@ -169,7 +169,7 @@ class Nav:
 
     def get_distance(self, pos1 : dict, pos2 : dict) -> float:
 
-        if (len(pos1) > 0 and len(pos2) > 0) or pos1['lat'] == None or pos2['lat'] == None:
+        if (len(pos1) > 0 and len(pos2) > 0) or not pos1['lat'] == None or not pos2['lat'] == None:
             a = Geodesic.WGS84.Inverse(pos1['lat'], pos1['lng'], pos2['lat'], pos2['lng'])
             return round(a['s12'], 2)
         else:
