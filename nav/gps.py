@@ -22,6 +22,8 @@ class GPS:
             ser = self.ser.readline()
             data = ser.decode()
 
+            print(f"[GPS] {data}")
+
             items = data.split(",")
             self.nav.GPS = data
             self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
