@@ -29,16 +29,16 @@ class GPS:
                 self.nav.GPS = data
 
                 try: self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
-                except: self.nav.position = {'lat': None, 'lng': None}
+                except: self.nav.position = {'lat': 0, 'lng': 0}
 
                 try: self.nav.speed = float(items[4])
-                except: self.nav.speed = None
+                except: self.nav.speed = -1
 
                 try: self.nav.heading = float(items[8])
-                except: self.nav.heading = None
+                except: self.nav.heading = -1
 
                 try: self.nav.sats = float(items[1])
-                except: self.nav.sats = None
+                except: self.nav.sats = -1
 
         self.running = False
 
