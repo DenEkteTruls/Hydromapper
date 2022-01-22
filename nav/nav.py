@@ -242,7 +242,7 @@ class Nav:
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
 
-                heading = self.get_heading(self.position, waypoint)
+                heading = self.get_heading(waypoint, self.position)
                 distance = self.get_distance(self.position, waypoint)
 
                 self.offset = int(heading - self.heading)
