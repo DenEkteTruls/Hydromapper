@@ -27,6 +27,7 @@ class GPS:
             items = data.split(",")
             if len(items) > 0:
                 self.nav.GPS = data
+                print(items[2], items[3])
                 if items[2] == '' and items[3] == '':
                     self.nav.position = {'lat': None, 'lng': None}
                 else:
