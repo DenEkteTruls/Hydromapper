@@ -23,9 +23,10 @@ class GPS:
             data = ser.decode()
 
             self.GPS = data
+            self.nav.GPS = data
 
             items = data.split(",")
-            if len(items) > 0:
+            """if len(items) > 0:
                 self.nav.GPS = data
                 print(items[2], items[3])
                 if items[2] == '' and items[3] == '':
@@ -34,7 +35,7 @@ class GPS:
                     self.nav.position = {'lat': float(items[2]), 'lng': float(items[3])}
                 self.nav.heading = float(items[8])
                 self.nav.speed = float(items[4])
-                self.nav.sats = float(items[1])
+                self.nav.sats = float(items[1])"""
 
         self.running = False
 
