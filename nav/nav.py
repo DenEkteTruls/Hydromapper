@@ -242,11 +242,12 @@ class Nav:
                 if time.time() - last_time > 1:
                     print_ = True; last_time = time.time()
 
-                heading = self.get_heading(waypoint, self.position)
+                heading = self.get_heading(self.position, waypoint)
                 distance = self.get_distance(self.position, waypoint)
 
                 self.offset = int(heading - self.heading)
                 print(heading, self.heading, self.offset)
+                print(f"Heading to WP: {heading}\tHeading: {self.heading}\tOffset: {self.offset}\tDistance: {distance}")
 
                 #for esc in self.escs:
                 #    esc.distance_compansation(distance)
