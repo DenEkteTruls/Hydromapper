@@ -1,4 +1,4 @@
-from bdb import effective
+import time
 import socket
 import pygame
 
@@ -38,8 +38,14 @@ def renderText(text, pos, renderer):
 
 print("Arm\t\t:\to\nDisarm\t\t:\tl\nReturn Home\t:\th\nStart AP\t:\tk\nStop AP\t\t:\tm\nKILL\t\t:\ty\n")
 
+last_checked = time.time()
+
 running = True
 while running:
+
+    if time.time() - last_checked >= 1000:
+        net.send("checked")
+        last_checked = time.time()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
