@@ -191,7 +191,7 @@ class Nav:
 
         if not depth == -1 and image.any():
             with open("saved_data.json", "a") as f:
-                f.write(f"{self.sample_ticker},{position},{depth},{heading}")
+                f.write(f"{self.sample_ticker},{position},{depth},{heading}\n")
             cv2.imwrite(f"samples/{self.sample_ticker}.jpg", image)
             print(f"[SAVE DATA]\t{self.sample_ticker},{position},{depth},{heading}")
             self.sample_ticker += 1
