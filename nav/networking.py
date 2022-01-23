@@ -16,7 +16,7 @@ class Networking:
         self.server.bind((self.host, self.port))
         print("Server started")
 
-        self.last_checked = time()
+        self.last_checked = time.time()
 
 
     def listener__(self):
