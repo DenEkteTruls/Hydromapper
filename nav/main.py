@@ -22,7 +22,7 @@ nav.load_waypoints("waypoints.json")
 net.listener()
 
 nav.show_simulated_route()
-nav.start_autopilot()
+#nav.start_autopilot()
 
 while nav.running or nav.retHome:
     

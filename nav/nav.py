@@ -104,11 +104,12 @@ class Nav:
             elif msg == "1x0011":
                 self.stop_autopilot()
 
-            elif msg == "stop" or msg == "quit":
+            elif msg == "stop" or msg == "quit" or msg == "3x0000":
                 self.retHome = False
                 for esc in self.escs:
                     esc.disarm()
                 return False
+
 
 
             # (python3.10)
@@ -276,6 +277,8 @@ class Nav:
 
     def start_autopilot(self) -> None:
 
+        self.retHome = False
+        self.autopilot_running = True 
         threading._start_new_thread(self.start_autopilot_, ())
 
 
