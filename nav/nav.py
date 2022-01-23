@@ -15,6 +15,7 @@ from geographiclib.geodesic import Geodesic
 #   1x0001              : Start Autopilot
 #   1x0011              : Stop Autopilot
 #   2x-60 > 2x+60       : Rudder heading (direct)
+#   3x0000              : Stop everything
 #
 
 class Nav:
