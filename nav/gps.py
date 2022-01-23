@@ -8,6 +8,7 @@ class GPS:
         self.nav = nav
         self.running = True
         self.GPS = None
+        self.last_pos = {}
         
         try:
             self.ser = serial.Serial("/dev/ttyUSB0", 115200)
@@ -34,14 +35,19 @@ class GPS:
                 try: self.nav.speed = float(items[4])
                 except: self.nav.speed = -1
 
-                try:
-                    a = float(items[8]) + 90
-                    if a > 360: a -= 360
-                    self.nav.heading = a
-                except: self.nav.heading = -1
+                #try:
+                    #a = float(items[8]) + 90
+                    #if a > 360: a -= 360
+                    #self.nav.heading = a
+                #except: self.nav.heading = -1
 
                 try: self.nav.sats = float(items[1])
                 except: self.nav.sats = -1
+
+                if not self.last_pos == {}:
+                    self.nav.heading = self.nav.get_heading(self.nav.position, self.last_pos);
+
+                self.last_pos  = self.nav.position
 
         self.running = False
 

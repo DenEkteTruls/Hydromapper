@@ -26,6 +26,8 @@ class Sonar:
 
             self.nav.depth = self.depth
             self.nav.depthshot = gray
+
+            self.nav.save_data(self.nav.position, self.depth, self.nav.heading, gray)
             
         self.cap.release()
         self.running = False
