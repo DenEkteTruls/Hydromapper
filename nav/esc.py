@@ -31,7 +31,7 @@ class ESC:
         #self.pi.set_PWM_dutycycle(self.esc_pin, self.speed)
 
         self.speed = 1040 + speed
-        os.system(f"pigs s 4 {self.speed}")
+        os.system(f"pigs s 18 {self.speed}")
 
 #        self.speed = 1000 + speed
 #        self.pi.set_PWM_frequency(self.esc_pin, self.speed)
